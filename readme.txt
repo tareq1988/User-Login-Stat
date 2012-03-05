@@ -6,7 +6,7 @@ Requires at least: 3.2
 Tested up to: 3.3
 Stable tag: 0.1
 
-A simple plugin that tracks registered users login statistics per day. You can track how many registered users are signing in to your site everyday. 
+Track registered users login activity
 
 == Description ==
 
@@ -30,7 +30,7 @@ Nope, currently there isn't any
 
 == Screenshots ==
 
-Screenshot of this plugin
+1. Screenshot of this plugin
 
 == Changelog ==
 

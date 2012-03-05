@@ -26,8 +26,8 @@ class User_Login_Stats{
 
     /**
      * Create the table installing the plugin
-     * 
-     * @global type $wpdb 
+     *
+     * @global type $wpdb
      */
     function install() {
         global $wpdb;
@@ -44,11 +44,11 @@ class User_Login_Stats{
 
     /**
      * Run the function when the user logs in
-     * 
+     *
      * If the users last login date is not today, update the visit count
      * and update the last login
-     * 
-     * @param type $login 
+     *
+     * @param type $login
      */
     function login_update( $login ) {
         $user = get_user_by( 'login', $login );
@@ -64,7 +64,7 @@ class User_Login_Stats{
 
     /**
      * Runs everytime to check if the user's last login time is more than 24 hours
-     * 
+     *
      * This function runs on `wp_head` hook and works for only loggedin users
      */
     function check_user() {
@@ -82,12 +82,12 @@ class User_Login_Stats{
 
     /**
      * Update the database and user last login
-     * 
-     * If a row is already in the table, increase the count. Otherwise create 
+     *
+     * If a row is already in the table, increase the count. Otherwise create
      * a new row and store 1 as the value
-     * 
+     *
      * @global type $wpdb
-     * @param type $user_id 
+     * @param type $user_id
      */
     function update( $user_id ) {
         global $wpdb;
@@ -95,8 +95,10 @@ class User_Login_Stats{
         //if any rows found, increase the count, else insert new row
         $today = date( 'Y-m-d', time() );
         $row = $wpdb->get_row( "SELECT `count` FROM {$this->table} WHERE `date`='$today'" );
+
         if( $row ) {
             $wpdb->query( "UPDATE {$this->table} SET `count`=`count`+1 WHERE `date`='$today'" );
+            
         } else {
             $wpdb->insert( $this->table, array(
                 'date' => $today,
@@ -117,9 +119,9 @@ class User_Login_Stats{
 
     /**
      * Displays the statistics in the admin area
-     * 
+     *
      * @global type $wpdb
-     * @global type $userdata 
+     * @global type $userdata
      */
     function admin_page() {
         global $wpdb, $userdata;
@@ -133,23 +135,22 @@ class User_Login_Stats{
 
         $total_users = count_users();
 
-        //{$this->table}
-        $week = $wpdb->get_var( "SELECT sum( `count` ) FROM `{$this->table}` WHERE `date` >= ( DATE_SUB( CURRENT_DATE, INTERVAL 7 DAY ) )" );
-        $month = $wpdb->get_var();
-        $six_month = $wpdb->get_var();
-        $year = $wpdb->get_var();
+        //$week = $wpdb->get_var( "SELECT sum( `count` ) FROM `{$this->table}` WHERE `date` >= ( DATE_SUB( CURRENT_DATE, INTERVAL 7 DAY ) )" );
+        //$month = $wpdb->get_var();
+        //$six_month = $wpdb->get_var();
+        //$year = $wpdb->get_var();
         //var_dump( $total_users);
         //update_user_meta( $userdata->ID, 'last_login', '' );
         //var_dump( $userdata->last_login );
         ?>
         <div class="wrap">
-            <h2><?php _e( 'User Login Statistics' ); ?></h2>
+            <h2><?php _e( 'User Login Statistics', 'uls' ); ?></h2>
 
             <table class="widefat">
                 <thead>
                     <tr valign="top">
                         <th scope="col"><?php _e( 'Date' ); ?></th>
-                        <th scope="col"><?php _e( 'Count' ); ?></th>
+                        <th scope="col"><?php _e( 'Count', 'uls' ); ?></th>
                     </tr>
                 </thead>
                 <?php
@@ -166,7 +167,7 @@ class User_Login_Stats{
                 } else {
                     ?>
                     <tr>
-                        <td colspan="7"><?php _e( 'Nothing found' ); ?></td>
+                        <td colspan="7"><?php _e( 'Nothing found', 'uls' ); ?></td>
                     </tr>
                 <?php } ?>
             </table>
