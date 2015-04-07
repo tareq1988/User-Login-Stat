@@ -4,7 +4,7 @@ Donate link: http://tareq.weDevs.com
 Tags: user, login, stat, statistics
 Requires at least: 3.2
 Tested up to: 4.1.1
-Stable tag: 0.1
+Stable tag: trunk
 
 Track registered users login activity
 
